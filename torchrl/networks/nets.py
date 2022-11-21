@@ -174,7 +174,7 @@ class ModularGatedCascadeCondNet(nn.Module):
         # Return weights for visualization
         out = self.base(x)
         embedding = self.em_base(embedding_input)
-
+        ############################################################## Routing start)
         if self.cond_ob:
             embedding = embedding * out
 
@@ -234,7 +234,8 @@ class ModularGatedCascadeCondNet(nn.Module):
 
         raw_last_weight = self.gating_weight_last(cond)
         last_weight = F.softmax(raw_last_weight, dim = -1)
-
+        
+        ############################################################## Policy network
         module_outputs = [(layer_module(out)).unsqueeze(-2) \
                 for layer_module in self.layer_modules[0]]
 
